@@ -1,37 +1,47 @@
-@if (toDoItems.length > 0){
-    <div class="mt-8 space-y-4">
-        <h2 class="text-2xl font-bold text-center text-gray-800 mb-6">Existing To-Dos</h2>
-        @for (todo of toDoItems; track todo; let i = $index) {
-            <div class="p-4 border-l-4 border-blue-600 bg-gray-50 rounded-lg">
-                <div class="flex justify-between items-center mb-1">
-                    <h3 class="font-semibold text-gray-800">{{ todo.name }}</h3>
-                    <span class="text-sm text-gray-500">{{ todo.dueDate }}</span>
-                </div>
-                <p class="text-gray-700">{{ todo.details }}</p>
+@if (editingIndex !== null) {
+  <form [formGroup]="taskForm" (ngSubmit)="onSubmit()" class="space-y-2 mb-8">
+    <input formControlName="name" placeholder="Name" class="w-full p-2 border rounded" />
+    <input formControlName="details" placeholder="Details" class="w-full p-2 border rounded" />
+    <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded">
+      Atualizar
+    </button>
+    <button type="button" (click)="cancelEdit()" class="px-4 py-2 bg-gray-400 text-white rounded">
+      Cancelar
+    </button>
+  </form>
+}
 
-                <div class="flex gap-2">
-                    <button
-                      (click)="toggleComplete(i)"
-                      class="px-3 py-1 text-xs font-medium rounded bg-green-100 text-green-800 hover:bg-green-200"
-                    >
-                      {{ todo.completed ? 'Undo' : 'Complete' }}
-                    </button>
-<!--             
-                    <button
-                      (click)="editTodo(i)"
-                      class="px-3 py-1 text-xs font-medium rounded bg-yellow-100 text-yellow-800 hover:bg-yellow-200"
-                    >
-                      Edit
-                    </button> -->
-            
-                    <button
-                      (click)="deleteTodo(i)"
-                      class="px-3 py-1 text-xs font-medium rounded bg-red-100 text-red-800 hover:bg-red-200"
-                    >
-                      Delete
-                    </button>
-                  </div>
-            </div>
-        }
-    </div>
+@if (toDoItems.length > 0) {
+  <div class="mt-8 space-y-4">
+    <h2 class="text-2xl font-bold text-center text-gray-800 mb-6">Existing To-Dos</h2>
+    @for (todo of toDoItems; track todo; let i = $index) {
+      <div class="p-4 border-l-4 border-blue-600 bg-gray-50 rounded-lg">
+        <div class="flex justify-between items-center mb-1">
+          <h3 class="font-semibold text-gray-800">{{ todo.name }}</h3>
+          <span class="text-sm text-gray-500">{{ todo.dueDate }}</span>
+
+        </div>
+        <p class="text-gray-700">{{ todo.details }}</p>
+
+        <div class="flex gap-2">
+          <button 
+          (click)="toggleComplete(i)" 
+          class="px-3 py-1 text-xs font-medium rounded bg-green-100 text-green-800 hover:bg-green-200">
+            {{ todo.completed ? 'Undo' : 'Complete' }}
+          </button>
+
+          <button 
+          (click)="editTodo(i)" 
+          class="px-3 py-1 text-xs font-medium rounded bg-yellow-100 text-yellow-800 hover:bg-yellow-200">
+            Edit
+          </button>
+          <button 
+          (click)="deleteTodo(i)" 
+          class="px-3 py-1 text-xs font-medium rounded bg-red-100 text-red-800 hover:bg-red-200">            
+          Delete
+          </button>
+        </div>
+      </div>
+    }
+  </div>
 }

@@ -21,9 +21,9 @@ export class TaskFormComponent {
 
   onSubmit = () => {
     if (this.taskForm.valid) {
-      this.todoDataService.updateTodoData(this.taskForm.value);
-      this.taskForm.reset();
+        this.todoDataService.addTodoData(this.taskForm.value);
+        this.taskForm.reset();
+      }
     }
-  }
-
+  
 }

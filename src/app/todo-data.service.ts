@@ -11,12 +11,19 @@ export class TodoDataService {
   private todoDataSource = new BehaviorSubject<Task[]>([]);
   todoData$ = this.todoDataSource.asObservable();
 
-  updateTodoData(data: Task) {
-    this.todos.push(data);
+  updateTodoData = (index: number, data: Task) => {
+    console.log('Dados:', data);
+    console.log('Index de edição:', index);
+    this.todos[index]= (data);
     this.todoDataSource.next([...this.todos]);
   }
 
-  deleteTodoItem(index: number){
+  addTodoData = (data: Task) => {
+  this.todos.push(data);
+  this.todoDataSource.next([...this.todos]);
+  }
+
+  deleteTodoItem = (index: number) => {
     this.todos.splice(index, 1);
     this.todoDataSource.next([...this.todos]);
   }
