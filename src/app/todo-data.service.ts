@@ -7,7 +7,7 @@ import { Task } from './types/task';
 })
 export class TodoDataService {
 
-  private todos: any[] = [];
+  private todos: Task[] = [];
   private todoDataSource = new BehaviorSubject<Task[]>([]);
   todoData$ = this.todoDataSource.asObservable();
 
@@ -23,6 +23,15 @@ export class TodoDataService {
 
   toggleComplete = (index: number) => {
     this.todos[index].completed = !this.todos[index].completed;
+    this.todoDataSource.next([...this.todos]);
+  }
+
+  getTodoItem = (index: number) => {
+    return this.todos[index];
+  }
+  
+  editTodoItem = (index: number, task: Task) => {
+    this.todos[index] = task;
     this.todoDataSource.next([...this.todos]);
   }
 
