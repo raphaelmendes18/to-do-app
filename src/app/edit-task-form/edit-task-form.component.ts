@@ -30,4 +30,8 @@ export class EditTaskFormComponent implements OnInit {
       this.dialogRef.close(this.taskForm.value);
     }
   }
+
+  onCancel() {
+    this.dialogRef.close();
+  }
 }
